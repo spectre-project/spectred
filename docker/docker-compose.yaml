@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+
+  spectred:
+    container_name: spectred
+    image: spectrenetwork/spectred:latest
+    restart: unless-stopped
+    ports:
+      - "18110:18110/tcp"
+      - "18111:18111/tcp"
+    volumes:
+      - $HOME/.spectred:/app/data/
+# use managed volumes
+#      - spectred:/app/data/
+    command:  ./spectred --utxoindex --connect=mainnet-dnsseed-1.spectre-network.org --appdir=/app/data

@@ -1,0 +1,109 @@
+name: Build and upload assets
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            TARGET: linux/x86_64
+          - os: ubuntu-latest
+            TARGET: linux/aarch64
+          - os: ubuntu-latest
+            TARGET: windows/x64
+          - os: macos-latest
+            TARGET: macos/x64
+    name: Building, ${{ matrix.TARGET }}
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+
+      - name: Update sources
+        if: matrix.TARGET == 'linux/aarch64' || matrix.TARGET == 'windows/x64'
+        run: sudo apt-get update -y
+
+      - name: Install compilers
+        if: matrix.TARGET == 'linux/aarch64' || matrix.TARGET == 'windows/x64'
+        run: sudo apt-get install gcc-aarch64-linux-gnu gcc-mingw-w64-x86-64-win32 -y
+
+      - name: Build on Linux for ${{ matrix.TARGET }}
+        if: matrix.TARGET == 'linux/x86_64'
+        run: |
+
+          # `-extldflags=-static` - means static link everything,
+          # `-tags netgo,osusergo` means use pure go replacements for "os/user" and "net"
+          # `-s -w` strips the binary to produce smaller size binaries
+          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ . ./cmd/...
+          archive="bin/spectred-${{ github.event.release.tag_name }}-linux-x86_64.zip"
+          asset_name="spectred-${{ github.event.release.tag_name }}-linux-x86_64.zip"
+          zip -r "${archive}" ./bin/*
+          echo "archive=${archive}" >> $GITHUB_ENV
+          echo "asset_name=${asset_name}" >> $GITHUB_ENV
+
+      - name: Build on Linux for ${{ matrix.TARGET }}
+        if: matrix.TARGET == 'linux/aarch64'
+        env:
+          CGO_ENABLED: 1
+          CC: aarch64-linux-gnu-gcc
+          GOOS: linux
+          GOARCH: arm64
+        run: |
+
+          # `-extldflags=-static` - means static link everything,
+          # `-tags netgo,osusergo` means use pure go replacements for "os/user" and "net"
+          # `-s -w` strips the binary to produce smaller size binaries
+          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ . ./cmd/...
+          archive="bin/spectred-${{ github.event.release.tag_name }}-linux-aarch64.zip"
+          asset_name="spectred-${{ github.event.release.tag_name }}-linux-aarch64.zip"
+          zip -r "${archive}" ./bin/*
+          echo "archive=${archive}" >> $GITHUB_ENV
+          echo "asset_name=${asset_name}" >> $GITHUB_ENV
+
+      - name: Build on Linux for ${{ matrix.TARGET }}
+        if: matrix.TARGET == 'windows/x64'
+        env:
+          CGO_ENABLED: 1
+          CC: x86_64-w64-mingw32-gcc
+          GOOS: windows
+          GOARCH: amd64
+        run: |
+
+          # `-extldflags=-static` - means static link everything,
+          # `-tags netgo,osusergo` means use pure go replacements for "os/user" and "net"
+          # `-s -w` strips the binary to produce smaller size binaries
+          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ . ./cmd/...
+          archive="bin/spectred-${{ github.event.release.tag_name }}-windows-x64.zip"
+          asset_name="spectred-${{ github.event.release.tag_name }}-windows-x64.zip"
+          zip -r "${archive}" ./bin/*
+          echo "archive=${archive}" >> $GITHUB_ENV
+          echo "asset_name=${asset_name}" >> $GITHUB_ENV
+
+      - name: Build on Linux for ${{ matrix.TARGET }}
+        if: matrix.TARGET == 'macos/x64'
+        run: |
+          go build -v -ldflags="-s -w" -o ./bin/ . ./cmd/...
+          archive="bin/spectred-${{ github.event.release.tag_name }}-macos-x64.zip"
+          asset_name="spectred-${{ github.event.release.tag_name }}-macos-x64.zip"
+          zip -r "${archive}" ./bin/*
+          echo "archive=${archive}" >> $GITHUB_ENV
+          echo "asset_name=${asset_name}" >> $GITHUB_ENV
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: "./${{ env.archive }}"
+          asset_name: "${{ env.asset_name }}"
+          asset_content_type: application/zip

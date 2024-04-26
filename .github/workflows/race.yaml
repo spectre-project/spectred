@@ -1,0 +1,48 @@
+name: Race
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  race_test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: [ stable, latest ]
+    name: Race detection on ${{ matrix.branch }}
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+
+      - name: Set scheduled branch name
+        shell: bash
+        if: github.event_name == 'schedule'
+        run: |
+          if [ "${{ matrix.branch }}" == "stable" ]; then
+            echo "run_on=master" >> $GITHUB_ENV
+          fi
+          if [ "${{ matrix.branch }}" == "latest" ]; then
+            echo "run_on=dev" >> $GITHUB_ENV
+          fi
+
+      - name: Set manual branch name
+        shell: bash
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "run_on=${{ github.ref }}" >> $GITHUB_ENV
+
+      - name: Test with race detector
+        shell: bash
+        run: |
+          git checkout "${{ env.run_on }}"
+          git status
+          go test -timeout 20m -race ./...
