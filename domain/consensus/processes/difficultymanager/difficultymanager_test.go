@@ -134,7 +134,7 @@ func TestDifficulty(t *testing.T) {
 		case dagconfig.DevnetParams.Name:
 			expectedBits = uint32(0x1f4e54ab)
 		case dagconfig.MainnetParams.Name:
-			expectedBits = uint32(0x1e7465aa)
+			expectedBits = uint32(0x2001f2ab)
 		}
 
 		if tip.Header.Bits() != expectedBits {
