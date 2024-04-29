@@ -1,6 +1,7 @@
 package pow
 
 import (
+	"github.com/spectre-project/go-spectrex"
 	"github.com/spectre-project/spectred/domain/consensus/model/externalapi"
 	"github.com/spectre-project/spectred/domain/consensus/utils/consensushashing"
 	"github.com/spectre-project/spectred/domain/consensus/utils/hashes"
@@ -42,6 +43,14 @@ func NewState(header externalapi.MutableBlockHeader) *State {
 	}
 }
 
+// AstroBWTv3Hash calculates the astrobwt hash
+func AstroBWTv3Hash(hashIn *externalapi.DomainHash) *externalapi.DomainHash {
+	hash := astrobwtv3.AstroBWTv3(hashIn.ByteSlice())
+	hashOut := [32]byte{}
+	copy(hashOut[:], hash[:])
+	return externalapi.NewDomainHashFromByteArray(&hashOut)
+}
+
 // CalculateProofOfWorkValue hashes the internal header and returns its big.Int value
 func (state *State) CalculateProofOfWorkValue() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
@@ -58,7 +67,8 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
 	powHash := writer.Finalize()
-	heavyHash := state.mat.HeavyHash(powHash)
+	bwtHash := AstroBWTv3Hash(powHash)
+	heavyHash := state.mat.HeavyHash(bwtHash)
 	return toBig(heavyHash)
 }
 
