@@ -114,6 +114,13 @@ runs, but all of the basic operations work with zero configuration.
 spectred
 ```
 
+## Mining
+
+The built-in `spectreminer` is a very simple unoptimized multi-core
+miner. Withouit specifying amount of cores it spawns one mining worker
+as the original Kaspa builtin miner. You can specify amount of workers
+based on number of cores with the command line option `--workers`.
+
 ## Discord
 
 Join our [Discord](https://discord.spectre-network.org/) server and
