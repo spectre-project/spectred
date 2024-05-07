@@ -68,7 +68,7 @@ an highly optimized CPU-miner.
 ## Mathematics
 
 We love numbers, you will find a lot of mathematical constants in the
-source code, in the genesis hash, genesis paylod, genesis merkle hash
+source code, in the genesis hash, genesis payload, genesis merkle hash
 and more. Mathematical constants like [Pi](https://en.wikipedia.org/wiki/Pi),
 [E](https://en.wikipedia.org/wiki/E_(mathematical_constant)) and
 several prime numbers used as starting values for nonce or difficulty.
@@ -117,7 +117,7 @@ spectred
 ## Mining
 
 The built-in `spectreminer` is a very simple unoptimized multi-core
-miner. Withouit specifying amount of cores it spawns one mining worker
+miner. Without specifying amount of cores it spawns one mining worker
 as the original Kaspa builtin miner. You can specify amount of workers
 based on number of cores with the command line option `--workers`.
 
