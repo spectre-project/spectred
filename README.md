@@ -5,6 +5,16 @@
 [![GitHub license](https://img.shields.io/github/license/spectre-project/spectred.svg)](https://github.com/spectre-project/spectred/blob/main/LICENSE)
 [![GitHub downloads](https://img.shields.io/github/downloads/spectre-project/spectred/total.svg)](https://github.com/spectre-project/spectred/releases)
 
+**ATTENTION: THIS REPOSITORY IS ARCHIVED AND NO LONGER UPDATED. THE GO
+VERSION HAS BEEN SUPERSEDED BY THE STABLE RUST VERSION OF SPECTRE. WE
+STRONGLY ENCOURAGE SWITCHING TO THE NEW RUST VERSION IMMEDIATELY.**
+
+**https://github.com/spectre-project/rusty-spectre**
+
+**PLEASE NOTE: BUGS AND FEATURE REQUESTS FOR THE GO VERSION WILL NOT BE
+ADDRESSED. REPRODUCE ANY ISSUES IN THE RUST VERSION AND REPORT THEM IN
+THE RELEVANT REPOSITORY.**
+
 Spectred is the reference full node Spectre implementation written in
 Go (golang). It is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
 as a proof-of-work cryptocurrency with instant confirmations and
