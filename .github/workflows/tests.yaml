@@ -29,9 +29,9 @@ jobs:
         run: powershell -command .github\workflows\SetPageFileSize.ps1
 
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.21
+          go-version: 1.23.1
 
       # Source: https://github.com/actions/cache/blob/main/examples.md#go---modules
       - name: Go Cache
@@ -51,9 +51,9 @@ jobs:
     name: Fast stability tests
     steps:
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.21
+          go-version: 1.23.1
 
       - name: Checkout
         uses: actions/checkout@v4
