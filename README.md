@@ -4,6 +4,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/spectre-project/spectred.svg)](https://github.com/spectre-project/spectred/releases)
 [![GitHub license](https://img.shields.io/github/license/spectre-project/spectred.svg)](https://github.com/spectre-project/spectred/blob/main/LICENSE)
 [![GitHub downloads](https://img.shields.io/github/downloads/spectre-project/spectred/total.svg)](https://github.com/spectre-project/spectred/releases)
+[![Join the Spectre Discord Server](https://img.shields.io/discord/1233113243741061240.svg?label=&logo=discord&logoColor=ffffff&color=5865F2)](https://discord.com/invite/FZPYpwszcF)
 
 **ATTENTION: THIS REPOSITORY IS ARCHIVED AND NO LONGER UPDATED. THE GO
 VERSION HAS BEEN SUPERSEDED BY THE STABLE RUST VERSION OF SPECTRE. WE

@@ -1,10 +1,9 @@
 package main
 
 import (
-	"os"
-
 	"github.com/pkg/errors"
 	"github.com/spectre-project/spectred/infrastructure/config"
+	"os"
 
 	"github.com/jessevdk/go-flags"
 )
@@ -22,6 +21,8 @@ const (
 	newAddressSubCmd                = "new-address"
 	dumpUnencryptedDataSubCmd       = "dump-unencrypted-data"
 	startDaemonSubCmd               = "start-daemon"
+	versionSubCmd                   = "version"
+	getDaemonVersionSubCmd          = "get-daemon-version"
 )
 
 const (
@@ -30,11 +31,12 @@ const (
 )
 
 type configFlags struct {
+	ShowVersion bool `short:"V" long:"version" description:"Display version information and exit"`
 	config.NetworkFlags
 }
 
 type createConfig struct {
-	KeysFile          string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\spectrewallet\\key.json (Windows))"`
+	KeysFile          string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\Spectrewallet\\key.json (Windows))"`
 	Password          string `long:"password" short:"p" description:"Wallet password"`
 	Yes               bool   `long:"yes" short:"y" description:"Assume \"yes\" to all questions"`
 	MinimumSignatures uint32 `long:"min-signatures" short:"m" description:"Minimum required signatures" default:"1"`
@@ -52,13 +54,13 @@ type balanceConfig struct {
 }
 
 type sendConfig struct {
-	KeysFile                 string   `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\spectrewallet\\key.json (Windows))"`
+	KeysFile                 string   `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\Spectrewallet\\key.json (Windows))"`
 	Password                 string   `long:"password" short:"p" description:"Wallet password"`
 	DaemonAddress            string   `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
 	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Spectre to" required:"true"`
-	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Spectre from. Use multiple times to accept several addresses" required:"false"`
+	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Spectre from. Repeat multiple times (adding -a before each) to accept several addresses" required:"false"`
 	SendAmount               string   `long:"send-amount" short:"v" description:"An amount to send in Spectre (e.g. 1234.12345678)"`
-	IsSendAll                bool     `long:"send-all" description:"Send all the Spectre in the wallet (mutually exclusive with --send-amount)"`
+	IsSendAll                bool     `long:"send-all" description:"Send all the Spectre in the wallet (mutually exclusive with --send-amount). If --from-address was used, will send all only from the specified addresses."`
 	UseExistingChangeAddress bool     `long:"use-existing-change-address" short:"u" description:"Will use an existing change address (in case no change address was ever used, it will use a new one)"`
 	Verbose                  bool     `long:"show-serialized" short:"s" description:"Show a list of hex encoded sent transactions"`
 	config.NetworkFlags
@@ -81,7 +83,7 @@ type createUnsignedTransactionConfig struct {
 }
 
 type signConfig struct {
-	KeysFile        string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\spectrewallet\\key.json (Windows))"`
+	KeysFile        string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\Spectrewallet\\key.json (Windows))"`
 	Password        string `long:"password" short:"p" description:"Wallet password"`
 	Transaction     string `long:"transaction" short:"t" description:"The unsigned transaction(s) to sign on (encoded in hex)"`
 	TransactionFile string `long:"transaction-file" short:"F" description:"The file containing the unsigned transaction(s) to sign on (encoded in hex)"`
@@ -113,7 +115,7 @@ type newAddressConfig struct {
 }
 
 type startDaemonConfig struct {
-	KeysFile  string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\spectrewallet\\key.json (Windows))"`
+	KeysFile  string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\Spectrewallet\\key.json (Windows))"`
 	Password  string `long:"password" short:"p" description:"Wallet password"`
 	RPCServer string `long:"rpcserver" short:"s" description:"RPC server to connect to"`
 	Listen    string `long:"listen" short:"l" description:"Address to listen on (default: 0.0.0.0:8882)"`
@@ -123,10 +125,17 @@ type startDaemonConfig struct {
 }
 
 type dumpUnencryptedDataConfig struct {
-	KeysFile string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\spectrewallet\\key.json (Windows))"`
+	KeysFile string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.spectrewallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\Spectrewallet\\key.json (Windows))"`
 	Password string `long:"password" short:"p" description:"Wallet password"`
 	Yes      bool   `long:"yes" short:"y" description:"Assume \"yes\" to all questions"`
 	config.NetworkFlags
+}
+
+type versionConfig struct {
+}
+
+type getDaemonVersionConfig struct {
+	DaemonAddress string `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
 }
 
 func parseCommandLine() (subCommand string, config interface{}) {
@@ -185,6 +194,9 @@ func parseCommandLine() (subCommand string, config interface{}) {
 		Listen:    defaultListen,
 	}
 	parser.AddCommand(startDaemonSubCmd, "Start the wallet daemon", "Start the wallet daemon", startDaemonConf)
+	parser.AddCommand(versionSubCmd, "Get the wallet version", "Get the wallet version", &versionConfig{})
+	getDaemonVersionConf := &getDaemonVersionConfig{DaemonAddress: defaultListen}
+	parser.AddCommand(getDaemonVersionSubCmd, "Get the wallet daemon version", "Get the wallet daemon version", getDaemonVersionConf)
 
 	_, err := parser.Parse()
 	if err != nil {
@@ -290,6 +302,9 @@ func parseCommandLine() (subCommand string, config interface{}) {
 			printErrorAndExit(err)
 		}
 		config = startDaemonConf
+	case versionSubCmd:
+	case getDaemonVersionSubCmd:
+		config = getDaemonVersionConf
 	}
 
 	return parser.Command.Active.Name, config

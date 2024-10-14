@@ -15,6 +15,7 @@ service spectrewalletd {
   rpc Send(SendRequest) returns (SendResponse) {}
   // Since SignRequest contains a password - this command should only be used on a trusted or secure connection
   rpc Sign(SignRequest) returns (SignResponse) {}
+  rpc GetVersion(GetVersionRequest) returns (GetVersionResponse) {}
 }
 
 message GetBalanceRequest {
@@ -126,4 +127,10 @@ message SignRequest{
 
 message SignResponse{
   repeated bytes signedTransactions = 1;
+}
+
+message GetVersionRequest{
+}
+message GetVersionResponse{
+  string version = 1;
 }

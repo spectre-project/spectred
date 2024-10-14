@@ -28,6 +28,7 @@ const (
 	Spectrewalletd_Broadcast_FullMethodName                  = "/spectrewalletd.spectrewalletd/Broadcast"
 	Spectrewalletd_Send_FullMethodName                       = "/spectrewalletd.spectrewalletd/Send"
 	Spectrewalletd_Sign_FullMethodName                       = "/spectrewalletd.spectrewalletd/Sign"
+	Spectrewalletd_GetVersion_FullMethodName                 = "/spectrewalletd.spectrewalletd/GetVersion"
 )
 
 // SpectrewalletdClient is the client API for Spectrewalletd service.
@@ -45,6 +46,7 @@ type SpectrewalletdClient interface {
 	Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error)
 	// Since SignRequest contains a password - this command should only be used on a trusted or secure connection
 	Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error)
+	GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error)
 }
 
 type spectrewalletdClient struct {
@@ -136,6 +138,15 @@ func (c *spectrewalletdClient) Sign(ctx context.Context, in *SignRequest, opts .
 	return out, nil
 }
 
+func (c *spectrewalletdClient) GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error) {
+	out := new(GetVersionResponse)
+	err := c.cc.Invoke(ctx, Spectrewalletd_GetVersion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SpectrewalletdServer is the server API for Spectrewalletd service.
 // All implementations must embed UnimplementedSpectrewalletdServer
 // for forward compatibility
@@ -151,6 +162,7 @@ type SpectrewalletdServer interface {
 	Send(context.Context, *SendRequest) (*SendResponse, error)
 	// Since SignRequest contains a password - this command should only be used on a trusted or secure connection
 	Sign(context.Context, *SignRequest) (*SignResponse, error)
+	GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error)
 	mustEmbedUnimplementedSpectrewalletdServer()
 }
 
@@ -184,6 +196,9 @@ func (UnimplementedSpectrewalletdServer) Send(context.Context, *SendRequest) (*S
 }
 func (UnimplementedSpectrewalletdServer) Sign(context.Context, *SignRequest) (*SignResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Sign not implemented")
+}
+func (UnimplementedSpectrewalletdServer) GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVersion not implemented")
 }
 func (UnimplementedSpectrewalletdServer) mustEmbedUnimplementedSpectrewalletdServer() {}
 
@@ -360,6 +375,24 @@ func _Spectrewalletd_Sign_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Spectrewalletd_GetVersion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetVersionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpectrewalletdServer).GetVersion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Spectrewalletd_GetVersion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpectrewalletdServer).GetVersion(ctx, req.(*GetVersionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Spectrewalletd_ServiceDesc is the grpc.ServiceDesc for Spectrewalletd service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -402,6 +435,10 @@ var Spectrewalletd_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Sign",
 			Handler:    _Spectrewalletd_Sign_Handler,
+		},
+		{
+			MethodName: "GetVersion",
+			Handler:    _Spectrewalletd_GetVersion_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
