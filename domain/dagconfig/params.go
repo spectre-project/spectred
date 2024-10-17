@@ -283,7 +283,7 @@ var TestnetParams = Params{
 	Net:         appmessage.Testnet,
 	RPCPort:     "18210",
 	DefaultPort: "18211",
-	DNSSeeds:    []string{
+	DNSSeeds: []string{
 		// Official DNS seeders.
 		"testnet-dnsseed-1.spectre-network.org",
 		"testnet-dnsseed-2.spectre-network.org",
