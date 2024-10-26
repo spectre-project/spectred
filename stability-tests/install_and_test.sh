@@ -19,9 +19,6 @@ staticcheck -checks SA4006,SA4008,SA4009,SA4010,SA5003,SA1004,SA1014,SA1021,SA10
 # vet checks.
 go vet -composites=false -v ./...
 
-# look for style mistakes.
-golint -set_exit_status ./...
-
 # install.
 go install -v ../...
 

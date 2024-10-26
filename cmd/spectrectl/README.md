@@ -4,7 +4,7 @@
 
 ## Requirements
 
-Go 1.19 or later.
+Go 1.23 or later.
 
 ## Build from Source
 

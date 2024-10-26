@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/spectre-project/spectred/cmd/spectrewallet/daemon/server"
 	"github.com/spectre-project/spectred/cmd/spectrewallet/keys"
 	"github.com/spectre-project/spectred/cmd/spectrewallet/libspectrewallet"
 )
@@ -40,7 +41,7 @@ func sign(conf *signConfig) error {
 		}
 		transactionsHex = strings.TrimSpace(string(transactionHexBytes))
 	}
-	partiallySignedTransactions, err := decodeTransactionsFromHex(transactionsHex)
+	partiallySignedTransactions, err := server.DecodeTransactionsFromHex(transactionsHex)
 	if err != nil {
 		return err
 	}
@@ -72,6 +73,6 @@ func sign(conf *signConfig) error {
 		fmt.Fprintln(os.Stderr, "Successfully signed transaction")
 	}
 
-	fmt.Println(encodeTransactionsToHex(updatedPartiallySignedTransactions))
+	fmt.Println(server.EncodeTransactionsToHex(updatedPartiallySignedTransactions))
 	return nil
 }

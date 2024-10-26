@@ -4,7 +4,7 @@ ARG SPECTREMINER_IMAGE
 FROM ${SPECTRED_IMAGE} as spectred
 FROM ${SPECTREMINER_IMAGE} as spectreminer
 
-FROM golang:1.19-alpine
+FROM golang:1.23-alpine
 
 RUN mkdir -p /go/src/github.com/spectre-project/spectred/
 

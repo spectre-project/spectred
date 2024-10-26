@@ -17,7 +17,7 @@ func (x *SpectredMessage_GetCurrentNetworkResponse) toAppMessage() (appmessage.M
 	if x == nil {
 		return nil, errors.Wrapf(errorNil, "SpectredMessage_GetCurrentNetworkResponse is nil")
 	}
-	return x.toAppMessage()
+	return x.GetCurrentNetworkResponse.toAppMessage()
 }
 
 func (x *SpectredMessage_GetCurrentNetworkResponse) fromAppMessage(message *appmessage.GetCurrentNetworkResponseMessage) error {

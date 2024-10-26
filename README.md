@@ -57,17 +57,17 @@ Why another fork? Kaspa is great but we love privacy, Monero and DERO
 are great but we love speed! So lets join the cool things from both.
 We decided to take Kaspa as codebase, quick comparison:
 
-Feature                      | Spectre  | Kaspa      | Monero  | DERO
------------------------------|----------|------------|---------|-----------
-PoW Algorithm                | SpectreX | kHeavyHash | RandomX | AstroBWTv3
-Balance Encryption           | Future   | No         | Yes     | Yes
-Transaction Encryption       | Future   | No         | Yes     | Yes
-Message Encyrption           | Future   | No         | No      | Yes
-Untraceable Transactions     | Future   | No         | Yes     | Yes
-Untraceable Mining           | Yes      | No         | No      | Yes
-Built-in multicore CPU-miner | Yes      | No         | Yes     | Yes
-High BPS                     | Yes      | Yes        | No      | No
-High TPS                     | Yes      | Yes        | No      | No
+| Feature                      | Spectre  | Kaspa      | Monero  | DERO       |
+| ---------------------------- | -------- | ---------- | ------- | ---------- |
+| PoW Algorithm                | SpectreX | kHeavyHash | RandomX | AstroBWTv3 |
+| Balance Encryption           | Future   | No         | Yes     | Yes        |
+| Transaction Encryption       | Future   | No         | Yes     | Yes        |
+| Message Encyrption           | Future   | No         | No      | Yes        |
+| Untraceable Transactions     | Future   | No         | Yes     | Yes        |
+| Untraceable Mining           | Yes      | No         | No      | Yes        |
+| Built-in multicore CPU-miner | Yes      | No         | Yes     | Yes        |
+| High BPS                     | Yes      | Yes        | No      | No         |
+| High TPS                     | Yes      | Yes        | No      | No         |
 
 Untraceable Mining is already achieved with AstroBWTv3 and a multicore
 miner is already being shipped with Spectre, working on ARM/x86. There
@@ -81,7 +81,7 @@ an highly optimized CPU-miner.
 We love numbers, you will find a lot of mathematical constants in the
 source code, in the genesis hash, genesis payload, genesis merkle hash
 and more. Mathematical constants like [Pi](https://en.wikipedia.org/wiki/Pi),
-[E](https://en.wikipedia.org/wiki/E_(mathematical_constant)) and
+[E](<https://en.wikipedia.org/wiki/E_(mathematical_constant)>) and
 several prime numbers used as starting values for nonce or difficulty.
 The first released version is `0.3.14`, the famous Pi divided by 10.
 
@@ -94,7 +94,7 @@ as universal binary can be downloaded at: [https://github.com/spectre-project/sp
 
 ### Build from Source
 
-Go 1.19 or later is required. Install Go according to the installation
+Go 1.23 or later is required. Install Go according to the installation
 instructions at [http://golang.org/doc/install](http://golang.org/doc/install).
 Ensure Go was installed properly and is a supported version:
 
