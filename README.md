@@ -1,3 +1,15 @@
+# DEPRECATED
+
+**IMPORTANT NOTICE:**
+The Go version of Spectre has been replaced by the stable Rust version. We strongly recommend switching to the new Rust version as soon as possible.
+
+**Link to the Rust version:** [https://github.com/spectre-project/rusty-spectre](https://github.com/spectre-project/rusty-spectre)
+
+**PLEASE NOTE:**
+
+- Bugs and feature requests for the Go version will no longer be addressed. If you encounter any issues, please reproduce them in the Rust version and report them in the appropriate repository.
+- Any pull requests or issues opened in this repository will be closed without consideration, except those related to `spectrewallet`, which is still being maintained. For all other cases, please use the [Rust implementation](https://github.com/spectre-project/rusty-spectre).
+
 # Spectred
 
 [![Build Status](https://github.com/spectre-project/spectred/actions/workflows/tests.yaml/badge.svg)](https://github.com/spectre-project/spectred/actions/workflows/tests.yaml)
@@ -6,17 +18,7 @@
 [![GitHub downloads](https://img.shields.io/github/downloads/spectre-project/spectred/total.svg)](https://github.com/spectre-project/spectred/releases)
 [![Join the Spectre Discord Server](https://img.shields.io/discord/1233113243741061240.svg?label=&logo=discord&logoColor=ffffff&color=5865F2)](https://discord.com/invite/FZPYpwszcF)
 
-**ATTENTION: THIS REPOSITORY IS ARCHIVED AND NO LONGER UPDATED. THE GO
-VERSION HAS BEEN SUPERSEDED BY THE STABLE RUST VERSION OF SPECTRE. WE
-STRONGLY ENCOURAGE SWITCHING TO THE NEW RUST VERSION IMMEDIATELY.**
-
-**https://github.com/spectre-project/rusty-spectre**
-
-**PLEASE NOTE: BUGS AND FEATURE REQUESTS FOR THE GO VERSION WILL NOT BE
-ADDRESSED. REPRODUCE ANY ISSUES IN THE RUST VERSION AND REPORT THEM IN
-THE RELEVANT REPOSITORY.**
-
-Spectred is the reference full node Spectre implementation written in
+Spectred was the reference full node Spectre implementation written in
 Go (golang). It is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
 as a proof-of-work cryptocurrency with instant confirmations and
 sub-second block times. It is based on [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a
