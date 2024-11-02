@@ -18,6 +18,7 @@ jobs:
             TARGET: windows/x64
           - os: macos-latest
             TARGET: macos/x64
+
     name: Building, ${{ matrix.TARGET }}
     steps:
       - name: Check out code into the Go module directory
@@ -43,7 +44,7 @@ jobs:
           # `-extldflags=-static` - means static link everything,
           # `-tags netgo,osusergo` means use pure go replacements for "os/user" and "net"
           # `-s -w` strips the binary to produce smaller size binaries
-          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ . ./cmd/...
+          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ ./cmd/...
           archive="bin/spectred-${{ github.event.release.tag_name }}-linux-x86_64.zip"
           asset_name="spectred-${{ github.event.release.tag_name }}-linux-x86_64.zip"
           zip -r "${archive}" ./bin/*
@@ -62,7 +63,7 @@ jobs:
           # `-extldflags=-static` - means static link everything,
           # `-tags netgo,osusergo` means use pure go replacements for "os/user" and "net"
           # `-s -w` strips the binary to produce smaller size binaries
-          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ . ./cmd/...
+          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ ./cmd/...
           archive="bin/spectred-${{ github.event.release.tag_name }}-linux-aarch64.zip"
           asset_name="spectred-${{ github.event.release.tag_name }}-linux-aarch64.zip"
           zip -r "${archive}" ./bin/*
@@ -81,7 +82,7 @@ jobs:
           # `-extldflags=-static` - means static link everything,
           # `-tags netgo,osusergo` means use pure go replacements for "os/user" and "net"
           # `-s -w` strips the binary to produce smaller size binaries
-          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ . ./cmd/...
+          go build -v -ldflags="-s -w -extldflags=-static" -tags netgo,osusergo -o ./bin/ ./cmd/...
           archive="bin/spectred-${{ github.event.release.tag_name }}-windows-x64.zip"
           asset_name="spectred-${{ github.event.release.tag_name }}-windows-x64.zip"
           zip -r "${archive}" ./bin/*
@@ -91,7 +92,7 @@ jobs:
       - name: Build on Linux for ${{ matrix.TARGET }}
         if: matrix.TARGET == 'macos/x64'
         run: |
-          go build -v -ldflags="-s -w" -o ./bin/ . ./cmd/...
+          go build -v -ldflags="-s -w" -o ./bin/ ./cmd/...
           archive="bin/spectred-${{ github.event.release.tag_name }}-macos-x64.zip"
           asset_name="spectred-${{ github.event.release.tag_name }}-macos-x64.zip"
           zip -r "${archive}" ./bin/*
