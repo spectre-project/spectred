@@ -2,10 +2,10 @@ package libspectrewallet_test
 
 import (
 	"fmt"
+	"github.com/spectre-project/spectred/cmd/spectrewallet/libspectrewallet/serialization"
+	"github.com/spectre-project/spectred/domain/consensus/utils/constants"
 	"strings"
 	"testing"
-
-	"github.com/spectre-project/spectred/domain/consensus/utils/constants"
 
 	"github.com/spectre-project/spectred/cmd/spectrewallet/libspectrewallet"
 	"github.com/spectre-project/spectred/domain/consensus"
@@ -25,6 +25,20 @@ func forSchnorrAndECDSA(t *testing.T, testFunc func(t *testing.T, ecdsa bool)) {
 	t.Run("ecdsa", func(t *testing.T) {
 		testFunc(t, true)
 	})
+}
+
+func createUnsignedTransactionSerialized(
+	extendedPublicKeys []string,
+	minimumSignatures uint32,
+	payments []*libspectrewallet.Payment,
+	selectedUTXOs []*libspectrewallet.UTXO) ([]byte, error) {
+
+	tx, err := libspectrewallet.CreateUnsignedTransaction(extendedPublicKeys, minimumSignatures, payments, selectedUTXOs)
+	if err != nil {
+		return nil, err
+	}
+
+	return serialization.SerializePartiallySignedTransaction(tx)
 }
 
 func TestMultisig(t *testing.T) {
@@ -103,7 +117,7 @@ func TestMultisig(t *testing.T) {
 				},
 			}
 
-			unsignedTransaction, err := libspectrewallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
+			unsignedTransaction, err := createUnsignedTransactionSerialized(publicKeys, minimumSignatures,
 				[]*libspectrewallet.Payment{{
 					Address: address,
 					Amount:  10,
@@ -264,7 +278,7 @@ func TestP2PK(t *testing.T) {
 				},
 			}
 
-			unsignedTransaction, err := libspectrewallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
+			unsignedTransaction, err := createUnsignedTransactionSerialized(publicKeys, minimumSignatures,
 				[]*libspectrewallet.Payment{{
 					Address: address,
 					Amount:  10,
@@ -426,7 +440,7 @@ func TestMaxSompi(t *testing.T) {
 			},
 		}
 
-		unsignedTxWithLargeInputAmount, err := libspectrewallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
+		unsignedTxWithLargeInputAmount, err := createUnsignedTransactionSerialized(publicKeys, minimumSignatures,
 			[]*libspectrewallet.Payment{{
 				Address: address,
 				Amount:  10,
@@ -477,7 +491,7 @@ func TestMaxSompi(t *testing.T) {
 			},
 		}
 
-		unsignedTxWithLargeInputAndOutputAmount, err := libspectrewallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
+		unsignedTxWithLargeInputAndOutputAmount, err := createUnsignedTransactionSerialized(publicKeys, minimumSignatures,
 			[]*libspectrewallet.Payment{{
 				Address: address,
 				Amount:  22e6 * constants.SompiPerSpectre,

@@ -26,9 +26,11 @@ const (
 	Spectrewalletd_NewAddress_FullMethodName                 = "/spectrewalletd.spectrewalletd/NewAddress"
 	Spectrewalletd_Shutdown_FullMethodName                   = "/spectrewalletd.spectrewalletd/Shutdown"
 	Spectrewalletd_Broadcast_FullMethodName                  = "/spectrewalletd.spectrewalletd/Broadcast"
+	Spectrewalletd_BroadcastReplacement_FullMethodName       = "/spectrewalletd.spectrewalletd/BroadcastReplacement"
 	Spectrewalletd_Send_FullMethodName                       = "/spectrewalletd.spectrewalletd/Send"
 	Spectrewalletd_Sign_FullMethodName                       = "/spectrewalletd.spectrewalletd/Sign"
 	Spectrewalletd_GetVersion_FullMethodName                 = "/spectrewalletd.spectrewalletd/GetVersion"
+	Spectrewalletd_BumpFee_FullMethodName                    = "/spectrewalletd.spectrewalletd/BumpFee"
 )
 
 // SpectrewalletdClient is the client API for Spectrewalletd service.
@@ -42,11 +44,16 @@ type SpectrewalletdClient interface {
 	NewAddress(ctx context.Context, in *NewAddressRequest, opts ...grpc.CallOption) (*NewAddressResponse, error)
 	Shutdown(ctx context.Context, in *ShutdownRequest, opts ...grpc.CallOption) (*ShutdownResponse, error)
 	Broadcast(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error)
-	// Since SendRequest contains a password - this command should only be used on a trusted or secure connection
+	// BroadcastReplacement assumes that all transactions depend on the first one
+	BroadcastReplacement(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error)
+	// Since SendRequest contains a password - this command should only be used on
+	// a trusted or secure connection
 	Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error)
-	// Since SignRequest contains a password - this command should only be used on a trusted or secure connection
+	// Since SignRequest contains a password - this command should only be used on
+	// a trusted or secure connection
 	Sign(ctx context.Context, in *SignRequest, opts ...grpc.CallOption) (*SignResponse, error)
 	GetVersion(ctx context.Context, in *GetVersionRequest, opts ...grpc.CallOption) (*GetVersionResponse, error)
+	BumpFee(ctx context.Context, in *BumpFeeRequest, opts ...grpc.CallOption) (*BumpFeeResponse, error)
 }
 
 type spectrewalletdClient struct {
@@ -120,6 +127,15 @@ func (c *spectrewalletdClient) Broadcast(ctx context.Context, in *BroadcastReque
 	return out, nil
 }
 
+func (c *spectrewalletdClient) BroadcastReplacement(ctx context.Context, in *BroadcastRequest, opts ...grpc.CallOption) (*BroadcastResponse, error) {
+	out := new(BroadcastResponse)
+	err := c.cc.Invoke(ctx, Spectrewalletd_BroadcastReplacement_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *spectrewalletdClient) Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error) {
 	out := new(SendResponse)
 	err := c.cc.Invoke(ctx, Spectrewalletd_Send_FullMethodName, in, out, opts...)
@@ -147,6 +163,15 @@ func (c *spectrewalletdClient) GetVersion(ctx context.Context, in *GetVersionReq
 	return out, nil
 }
 
+func (c *spectrewalletdClient) BumpFee(ctx context.Context, in *BumpFeeRequest, opts ...grpc.CallOption) (*BumpFeeResponse, error) {
+	out := new(BumpFeeResponse)
+	err := c.cc.Invoke(ctx, Spectrewalletd_BumpFee_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SpectrewalletdServer is the server API for Spectrewalletd service.
 // All implementations must embed UnimplementedSpectrewalletdServer
 // for forward compatibility
@@ -158,11 +183,16 @@ type SpectrewalletdServer interface {
 	NewAddress(context.Context, *NewAddressRequest) (*NewAddressResponse, error)
 	Shutdown(context.Context, *ShutdownRequest) (*ShutdownResponse, error)
 	Broadcast(context.Context, *BroadcastRequest) (*BroadcastResponse, error)
-	// Since SendRequest contains a password - this command should only be used on a trusted or secure connection
+	// BroadcastReplacement assumes that all transactions depend on the first one
+	BroadcastReplacement(context.Context, *BroadcastRequest) (*BroadcastResponse, error)
+	// Since SendRequest contains a password - this command should only be used on
+	// a trusted or secure connection
 	Send(context.Context, *SendRequest) (*SendResponse, error)
-	// Since SignRequest contains a password - this command should only be used on a trusted or secure connection
+	// Since SignRequest contains a password - this command should only be used on
+	// a trusted or secure connection
 	Sign(context.Context, *SignRequest) (*SignResponse, error)
 	GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error)
+	BumpFee(context.Context, *BumpFeeRequest) (*BumpFeeResponse, error)
 	mustEmbedUnimplementedSpectrewalletdServer()
 }
 
@@ -191,6 +221,9 @@ func (UnimplementedSpectrewalletdServer) Shutdown(context.Context, *ShutdownRequ
 func (UnimplementedSpectrewalletdServer) Broadcast(context.Context, *BroadcastRequest) (*BroadcastResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Broadcast not implemented")
 }
+func (UnimplementedSpectrewalletdServer) BroadcastReplacement(context.Context, *BroadcastRequest) (*BroadcastResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BroadcastReplacement not implemented")
+}
 func (UnimplementedSpectrewalletdServer) Send(context.Context, *SendRequest) (*SendResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Send not implemented")
 }
@@ -199,6 +232,9 @@ func (UnimplementedSpectrewalletdServer) Sign(context.Context, *SignRequest) (*S
 }
 func (UnimplementedSpectrewalletdServer) GetVersion(context.Context, *GetVersionRequest) (*GetVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVersion not implemented")
+}
+func (UnimplementedSpectrewalletdServer) BumpFee(context.Context, *BumpFeeRequest) (*BumpFeeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BumpFee not implemented")
 }
 func (UnimplementedSpectrewalletdServer) mustEmbedUnimplementedSpectrewalletdServer() {}
 
@@ -339,6 +375,24 @@ func _Spectrewalletd_Broadcast_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Spectrewalletd_BroadcastReplacement_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BroadcastRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpectrewalletdServer).BroadcastReplacement(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Spectrewalletd_BroadcastReplacement_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpectrewalletdServer).BroadcastReplacement(ctx, req.(*BroadcastRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Spectrewalletd_Send_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendRequest)
 	if err := dec(in); err != nil {
@@ -393,6 +447,24 @@ func _Spectrewalletd_GetVersion_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Spectrewalletd_BumpFee_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BumpFeeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SpectrewalletdServer).BumpFee(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Spectrewalletd_BumpFee_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SpectrewalletdServer).BumpFee(ctx, req.(*BumpFeeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Spectrewalletd_ServiceDesc is the grpc.ServiceDesc for Spectrewalletd service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -429,6 +501,10 @@ var Spectrewalletd_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Spectrewalletd_Broadcast_Handler,
 		},
 		{
+			MethodName: "BroadcastReplacement",
+			Handler:    _Spectrewalletd_BroadcastReplacement_Handler,
+		},
+		{
 			MethodName: "Send",
 			Handler:    _Spectrewalletd_Send_Handler,
 		},
@@ -439,6 +515,10 @@ var Spectrewalletd_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetVersion",
 			Handler:    _Spectrewalletd_GetVersion_Handler,
+		},
+		{
+			MethodName: "BumpFee",
+			Handler:    _Spectrewalletd_BumpFee_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -7,10 +7,13 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+	"github.com/spectre-project/spectred/cmd/spectrewallet/daemon/server"
+	"github.com/spectre-project/spectred/cmd/spectrewallet/keys"
 	"github.com/spectre-project/spectred/cmd/spectrewallet/libspectrewallet/serialization"
 	"github.com/spectre-project/spectred/domain/consensus/utils/consensushashing"
 	"github.com/spectre-project/spectred/domain/consensus/utils/constants"
 	"github.com/spectre-project/spectred/domain/consensus/utils/txscript"
+	"github.com/spectre-project/spectred/util/txmass"
 )
 
 func parse(conf *parseConfig) error {
@@ -19,6 +22,11 @@ func parse(conf *parseConfig) error {
 	}
 	if conf.Transaction != "" && conf.TransactionFile != "" {
 		return errors.Errorf("Both --transaction and --transaction-file cannot be passed at the same time")
+	}
+
+	keysFile, err := keys.ReadKeysFile(conf.NetParams(), conf.KeysFile)
+	if err != nil {
+		return err
 	}
 
 	transactionHex := conf.Transaction
@@ -30,10 +38,12 @@ func parse(conf *parseConfig) error {
 		transactionHex = strings.TrimSpace(string(transactionHexBytes))
 	}
 
-	transactions, err := decodeTransactionsFromHex(transactionHex)
+	transactions, err := server.DecodeTransactionsFromHex(transactionHex)
 	if err != nil {
 		return err
 	}
+
+	txMassCalculator := txmass.NewCalculator(conf.NetParams().MassPerTxByte, conf.NetParams().MassPerScriptPubKeyByte, conf.NetParams().MassPerSigOp)
 	for i, transaction := range transactions {
 
 		partiallySignedTransaction, err := serialization.DeserializePartiallySignedTransaction(transaction)
@@ -79,7 +89,16 @@ func parse(conf *parseConfig) error {
 		}
 		fmt.Println()
 
-		fmt.Printf("Fee:\t%d Sompi\n\n", allInputSompi-allOutputSompi)
+		fee := allInputSompi - allOutputSompi
+		fmt.Printf("Fee:\t%d Sompi (%f SPR)\n", fee, float64(fee)/float64(constants.SompiPerSpectre))
+		mass, err := server.EstimateMassAfterSignatures(partiallySignedTransaction, keysFile.ECDSA, keysFile.MinimumSignatures, txMassCalculator)
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("Mass: %d grams\n", mass)
+		feeRate := float64(fee) / float64(mass)
+		fmt.Printf("Fee rate: %.2f Sompi/Gram\n", feeRate)
 	}
 
 	return nil

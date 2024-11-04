@@ -1,3 +1,15 @@
+# DEPRECATED
+
+**IMPORTANT NOTICE:**
+The Go version of Spectre has been replaced by the stable Rust version. We strongly recommend switching to the new Rust version as soon as possible.
+
+**Link to the Rust version:** [https://github.com/spectre-project/rusty-spectre](https://github.com/spectre-project/rusty-spectre)
+
+**PLEASE NOTE:**
+
+- Bugs and feature requests for the Go version will no longer be addressed. If you encounter any issues, please reproduce them in the Rust version and report them in the appropriate repository.
+- Any pull requests or issues opened in this repository will be closed without consideration, except those related to `spectrewallet`, which is still being maintained. For all other cases, please use the [Rust implementation](https://github.com/spectre-project/rusty-spectre).
+
 # Spectred
 
 [![Build Status](https://github.com/spectre-project/spectred/actions/workflows/tests.yaml/badge.svg)](https://github.com/spectre-project/spectred/actions/workflows/tests.yaml)
@@ -6,17 +18,7 @@
 [![GitHub downloads](https://img.shields.io/github/downloads/spectre-project/spectred/total.svg)](https://github.com/spectre-project/spectred/releases)
 [![Join the Spectre Discord Server](https://img.shields.io/discord/1233113243741061240.svg?label=&logo=discord&logoColor=ffffff&color=5865F2)](https://discord.com/invite/FZPYpwszcF)
 
-**ATTENTION: THIS REPOSITORY IS ARCHIVED AND NO LONGER UPDATED. THE GO
-VERSION HAS BEEN SUPERSEDED BY THE STABLE RUST VERSION OF SPECTRE. WE
-STRONGLY ENCOURAGE SWITCHING TO THE NEW RUST VERSION IMMEDIATELY.**
-
-**https://github.com/spectre-project/rusty-spectre**
-
-**PLEASE NOTE: BUGS AND FEATURE REQUESTS FOR THE GO VERSION WILL NOT BE
-ADDRESSED. REPRODUCE ANY ISSUES IN THE RUST VERSION AND REPORT THEM IN
-THE RELEVANT REPOSITORY.**
-
-Spectred is the reference full node Spectre implementation written in
+Spectred was the reference full node Spectre implementation written in
 Go (golang). It is a [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph)
 as a proof-of-work cryptocurrency with instant confirmations and
 sub-second block times. It is based on [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a
@@ -57,17 +59,17 @@ Why another fork? Kaspa is great but we love privacy, Monero and DERO
 are great but we love speed! So lets join the cool things from both.
 We decided to take Kaspa as codebase, quick comparison:
 
-Feature                      | Spectre  | Kaspa      | Monero  | DERO
------------------------------|----------|------------|---------|-----------
-PoW Algorithm                | SpectreX | kHeavyHash | RandomX | AstroBWTv3
-Balance Encryption           | Future   | No         | Yes     | Yes
-Transaction Encryption       | Future   | No         | Yes     | Yes
-Message Encyrption           | Future   | No         | No      | Yes
-Untraceable Transactions     | Future   | No         | Yes     | Yes
-Untraceable Mining           | Yes      | No         | No      | Yes
-Built-in multicore CPU-miner | Yes      | No         | Yes     | Yes
-High BPS                     | Yes      | Yes        | No      | No
-High TPS                     | Yes      | Yes        | No      | No
+| Feature                      | Spectre  | Kaspa      | Monero  | DERO       |
+| ---------------------------- | -------- | ---------- | ------- | ---------- |
+| PoW Algorithm                | SpectreX | kHeavyHash | RandomX | AstroBWTv3 |
+| Balance Encryption           | Future   | No         | Yes     | Yes        |
+| Transaction Encryption       | Future   | No         | Yes     | Yes        |
+| Message Encyrption           | Future   | No         | No      | Yes        |
+| Untraceable Transactions     | Future   | No         | Yes     | Yes        |
+| Untraceable Mining           | Yes      | No         | No      | Yes        |
+| Built-in multicore CPU-miner | Yes      | No         | Yes     | Yes        |
+| High BPS                     | Yes      | Yes        | No      | No         |
+| High TPS                     | Yes      | Yes        | No      | No         |
 
 Untraceable Mining is already achieved with AstroBWTv3 and a multicore
 miner is already being shipped with Spectre, working on ARM/x86. There
@@ -81,7 +83,7 @@ an highly optimized CPU-miner.
 We love numbers, you will find a lot of mathematical constants in the
 source code, in the genesis hash, genesis payload, genesis merkle hash
 and more. Mathematical constants like [Pi](https://en.wikipedia.org/wiki/Pi),
-[E](https://en.wikipedia.org/wiki/E_(mathematical_constant)) and
+[E](<https://en.wikipedia.org/wiki/E_(mathematical_constant)>) and
 several prime numbers used as starting values for nonce or difficulty.
 The first released version is `0.3.14`, the famous Pi divided by 10.
 
@@ -94,7 +96,7 @@ as universal binary can be downloaded at: [https://github.com/spectre-project/sp
 
 ### Build from Source
 
-Go 1.19 or later is required. Install Go according to the installation
+Go 1.23 or later is required. Install Go according to the installation
 instructions at [http://golang.org/doc/install](http://golang.org/doc/install).
 Ensure Go was installed properly and is a supported version:
 

@@ -4,7 +4,7 @@
 
 ## Requirements
 
-Go 1.19 or later.
+Go 1.23 or later.
 
 ## Build from Source
 
@@ -29,7 +29,7 @@ go install .
 * `spectreminer` should now be installed in `$(go env GOPATH)/bin`.
   If you did not already add the bin directory to your system path
   during Go installation, you are encouraged to do so now.
-  
+
 ## Usage
 
 The full `spectreminer` configuration options can be seen with:
