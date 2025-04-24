@@ -217,6 +217,7 @@ var MainnetParams = Params{
 		// Official DNS seeders.
 		"mainnet-dnsseed-1.spectre-network.org",
 		"mainnet-dnsseed-2.spectre-network.org",
+		"mainnet-dnsseed-3.spectre-network.xyz",
 	},
 
 	// DAG parameters
@@ -287,6 +288,7 @@ var TestnetParams = Params{
 		// Official DNS seeders.
 		"testnet-dnsseed-1.spectre-network.org",
 		"testnet-dnsseed-2.spectre-network.org",
+		"testnet-dnsseed-3.spectre-network.xyz",
 	},
 
 	// DAG parameters

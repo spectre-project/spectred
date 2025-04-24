@@ -1,6 +1,6 @@
 module github.com/spectre-project/spectred
 
-go 1.21.0
+go 1.23.0
 
 toolchain go1.23.1
 
@@ -19,22 +19,22 @@ require (
 	github.com/spectre-project/go-spectrex v0.0.0-20240618094337-b3560f5cab2d
 	github.com/syndtr/goleveldb v1.0.1-0.20190923125748-758128399b1d
 	github.com/tyler-smith/go-bip39 v1.1.0
-	golang.org/x/crypto v0.28.0
-	golang.org/x/term v0.25.0
-	google.golang.org/grpc v1.67.1
-	google.golang.org/protobuf v1.35.1
+	golang.org/x/crypto v0.37.0
+	golang.org/x/term v0.31.0
+	google.golang.org/grpc v1.72.0
+	google.golang.org/protobuf v1.36.6
 )
 
 require (
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/dchest/siphash v1.2.3 // indirect
-	github.com/golang/snappy v0.0.4 // indirect
-	github.com/klauspost/cpuid/v2 v2.2.8 // indirect
+	github.com/golang/snappy v1.0.0 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
 	github.com/minio/sha256-simd v1.0.1 // indirect
 	github.com/segmentio/fasthash v1.0.3 // indirect
-	golang.org/x/net v0.30.0 // indirect
-	golang.org/x/sys v0.26.0 // indirect
-	golang.org/x/text v0.19.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20241021214115-324edc3d5d38 // indirect
+	golang.org/x/net v0.39.0 // indirect
+	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/text v0.24.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250414145226-207652e42e2e // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
