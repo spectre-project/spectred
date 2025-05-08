@@ -989,6 +989,34 @@ func toRPCPayload(message appmessage.Message) (isSpectredMessage_Payload, error)
 			return nil, err
 		}
 		return payload, nil
+	case *appmessage.GetPruningWindowRootsRequestMessage:
+		payload := new(SpectredMessage_GetPruningWindowRootsRequest)
+		err := payload.fromAppMessage(message)
+		if err != nil {
+			return nil, err
+		}
+		return payload, nil
+	case *appmessage.GetPruningWindowRootsResponseMessage:
+		payload := new(SpectredMessage_GetPruningWindowRootsResponse)
+		err := payload.fromAppMessage(message)
+		if err != nil {
+			return nil, err
+		}
+		return payload, nil
+	case *appmessage.AddArchivalBlocksRequestMessage:
+		payload := new(SpectredMessage_AddArchivalBlocksRequest)
+		err := payload.fromAppMessage(message)
+		if err != nil {
+			return nil, err
+		}
+		return payload, nil
+	case *appmessage.AddArchivalBlocksResponseMessage:
+		payload := new(SpectredMessage_AddArchivalBlocksResponse)
+		err := payload.fromAppMessage(message)
+		if err != nil {
+			return nil, err
+		}
+		return payload, nil
 	default:
 		return nil, nil
 	}

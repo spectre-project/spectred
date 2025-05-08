@@ -41,6 +41,9 @@ var commandTypes = []reflect.Type{
 
 	reflect.TypeOf(protowire.SpectredMessage_BanRequest{}),
 	reflect.TypeOf(protowire.SpectredMessage_UnbanRequest{}),
+
+	reflect.TypeOf(protowire.SpectredMessage_GetPruningWindowRootsRequest{}),
+	reflect.TypeOf(protowire.SpectredMessage_AddArchivalBlocksRequest{}),
 }
 
 type commandDescription struct {

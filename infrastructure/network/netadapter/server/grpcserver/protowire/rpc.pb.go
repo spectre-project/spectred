@@ -8203,6 +8203,429 @@ func (x *SubmitTransactionReplacementResponseMessage) GetError() *RPCError {
 	return nil
 }
 
+type GetPruningWindowRootsRequestMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GetPruningWindowRootsRequestMessage) Reset() {
+	*x = GetPruningWindowRootsRequestMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[139]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetPruningWindowRootsRequestMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPruningWindowRootsRequestMessage) ProtoMessage() {}
+
+func (x *GetPruningWindowRootsRequestMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[139]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPruningWindowRootsRequestMessage.ProtoReflect.Descriptor instead.
+func (*GetPruningWindowRootsRequestMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{139}
+}
+
+type PruningWindowRoots struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PpRoots []string `protobuf:"bytes,1,rep,name=pp_roots,json=ppRoots,proto3" json:"pp_roots,omitempty"`
+	PpIndex uint64   `protobuf:"varint,2,opt,name=pp_index,json=ppIndex,proto3" json:"pp_index,omitempty"`
+}
+
+func (x *PruningWindowRoots) Reset() {
+	*x = PruningWindowRoots{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[140]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PruningWindowRoots) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PruningWindowRoots) ProtoMessage() {}
+
+func (x *PruningWindowRoots) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[140]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PruningWindowRoots.ProtoReflect.Descriptor instead.
+func (*PruningWindowRoots) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{140}
+}
+
+func (x *PruningWindowRoots) GetPpRoots() []string {
+	if x != nil {
+		return x.PpRoots
+	}
+	return nil
+}
+
+func (x *PruningWindowRoots) GetPpIndex() uint64 {
+	if x != nil {
+		return x.PpIndex
+	}
+	return 0
+}
+
+type GetPruningWindowRootsResponseMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Roots []*PruningWindowRoots `protobuf:"bytes,1,rep,name=roots,proto3" json:"roots,omitempty"`
+	Error *RPCError             `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetPruningWindowRootsResponseMessage) Reset() {
+	*x = GetPruningWindowRootsResponseMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[141]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetPruningWindowRootsResponseMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetPruningWindowRootsResponseMessage) ProtoMessage() {}
+
+func (x *GetPruningWindowRootsResponseMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[141]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetPruningWindowRootsResponseMessage.ProtoReflect.Descriptor instead.
+func (*GetPruningWindowRootsResponseMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{141}
+}
+
+func (x *GetPruningWindowRootsResponseMessage) GetRoots() []*PruningWindowRoots {
+	if x != nil {
+		return x.Roots
+	}
+	return nil
+}
+
+func (x *GetPruningWindowRootsResponseMessage) GetError() *RPCError {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
+type AcceptedTxEntry struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TransactionId    string `protobuf:"bytes,1,opt,name=transactionId,proto3" json:"transactionId,omitempty"`
+	IndexWithinBlock uint32 `protobuf:"varint,2,opt,name=index_within_block,json=indexWithinBlock,proto3" json:"index_within_block,omitempty"`
+}
+
+func (x *AcceptedTxEntry) Reset() {
+	*x = AcceptedTxEntry{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[142]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AcceptedTxEntry) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AcceptedTxEntry) ProtoMessage() {}
+
+func (x *AcceptedTxEntry) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[142]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AcceptedTxEntry.ProtoReflect.Descriptor instead.
+func (*AcceptedTxEntry) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{142}
+}
+
+func (x *AcceptedTxEntry) GetTransactionId() string {
+	if x != nil {
+		return x.TransactionId
+	}
+	return ""
+}
+
+func (x *AcceptedTxEntry) GetIndexWithinBlock() uint32 {
+	if x != nil {
+		return x.IndexWithinBlock
+	}
+	return 0
+}
+
+type MergesetBlockAcceptanceData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	BlockHash   string             `protobuf:"bytes,1,opt,name=blockHash,proto3" json:"blockHash,omitempty"`
+	AcceptedTxs []*AcceptedTxEntry `protobuf:"bytes,3,rep,name=acceptedTxs,proto3" json:"acceptedTxs,omitempty"`
+}
+
+func (x *MergesetBlockAcceptanceData) Reset() {
+	*x = MergesetBlockAcceptanceData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[143]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MergesetBlockAcceptanceData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MergesetBlockAcceptanceData) ProtoMessage() {}
+
+func (x *MergesetBlockAcceptanceData) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[143]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MergesetBlockAcceptanceData.ProtoReflect.Descriptor instead.
+func (*MergesetBlockAcceptanceData) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{143}
+}
+
+func (x *MergesetBlockAcceptanceData) GetBlockHash() string {
+	if x != nil {
+		return x.BlockHash
+	}
+	return ""
+}
+
+func (x *MergesetBlockAcceptanceData) GetAcceptedTxs() []*AcceptedTxEntry {
+	if x != nil {
+		return x.AcceptedTxs
+	}
+	return nil
+}
+
+type ArchivalBlock struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Child          string                         `protobuf:"bytes,1,opt,name=child,proto3" json:"child,omitempty"`
+	Block          *RpcBlock                      `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+	AcceptanceData []*MergesetBlockAcceptanceData `protobuf:"bytes,3,rep,name=acceptanceData,proto3" json:"acceptanceData,omitempty"`
+	SelectedParent string                         `protobuf:"bytes,4,opt,name=selectedParent,proto3" json:"selectedParent,omitempty"`
+}
+
+func (x *ArchivalBlock) Reset() {
+	*x = ArchivalBlock{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[144]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ArchivalBlock) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ArchivalBlock) ProtoMessage() {}
+
+func (x *ArchivalBlock) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[144]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ArchivalBlock.ProtoReflect.Descriptor instead.
+func (*ArchivalBlock) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{144}
+}
+
+func (x *ArchivalBlock) GetChild() string {
+	if x != nil {
+		return x.Child
+	}
+	return ""
+}
+
+func (x *ArchivalBlock) GetBlock() *RpcBlock {
+	if x != nil {
+		return x.Block
+	}
+	return nil
+}
+
+func (x *ArchivalBlock) GetAcceptanceData() []*MergesetBlockAcceptanceData {
+	if x != nil {
+		return x.AcceptanceData
+	}
+	return nil
+}
+
+func (x *ArchivalBlock) GetSelectedParent() string {
+	if x != nil {
+		return x.SelectedParent
+	}
+	return ""
+}
+
+type AddArchivalBlocksRequestMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Blocks []*ArchivalBlock `protobuf:"bytes,1,rep,name=blocks,proto3" json:"blocks,omitempty"`
+}
+
+func (x *AddArchivalBlocksRequestMessage) Reset() {
+	*x = AddArchivalBlocksRequestMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[145]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddArchivalBlocksRequestMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddArchivalBlocksRequestMessage) ProtoMessage() {}
+
+func (x *AddArchivalBlocksRequestMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[145]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddArchivalBlocksRequestMessage.ProtoReflect.Descriptor instead.
+func (*AddArchivalBlocksRequestMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{145}
+}
+
+func (x *AddArchivalBlocksRequestMessage) GetBlocks() []*ArchivalBlock {
+	if x != nil {
+		return x.Blocks
+	}
+	return nil
+}
+
+type AddArchivalBlocksResponseMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Error *RPCError `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *AddArchivalBlocksResponseMessage) Reset() {
+	*x = AddArchivalBlocksResponseMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[146]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddArchivalBlocksResponseMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddArchivalBlocksResponseMessage) ProtoMessage() {}
+
+func (x *AddArchivalBlocksResponseMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[146]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddArchivalBlocksResponseMessage.ProtoReflect.Descriptor instead.
+func (*AddArchivalBlocksResponseMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{146}
+}
+
+func (x *AddArchivalBlocksResponseMessage) GetError() *RPCError {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
 var File_rpc_proto protoreflect.FileDescriptor
 
 var file_rpc_proto_rawDesc = []byte{
@@ -9355,10 +9778,63 @@ var file_rpc_proto_rawDesc = []byte{
 	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8,
 	0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72,
 	0x65, 0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f,
-	0x72, 0x42, 0x2f, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x73, 0x70, 0x65, 0x63, 0x74, 0x72, 0x65, 0x2d, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f,
-	0x73, 0x70, 0x65, 0x63, 0x74, 0x72, 0x65, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69,
-	0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x22, 0x25, 0x0a, 0x23, 0x47, 0x65, 0x74, 0x50, 0x72, 0x75, 0x6e, 0x69, 0x6e, 0x67, 0x57,
+	0x69, 0x6e, 0x64, 0x6f, 0x77, 0x52, 0x6f, 0x6f, 0x74, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x4a, 0x0a, 0x12, 0x50, 0x72, 0x75, 0x6e,
+	0x69, 0x6e, 0x67, 0x57, 0x69, 0x6e, 0x64, 0x6f, 0x77, 0x52, 0x6f, 0x6f, 0x74, 0x73, 0x12, 0x19,
+	0x0a, 0x08, 0x70, 0x70, 0x5f, 0x72, 0x6f, 0x6f, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09,
+	0x52, 0x07, 0x70, 0x70, 0x52, 0x6f, 0x6f, 0x74, 0x73, 0x12, 0x19, 0x0a, 0x08, 0x70, 0x70, 0x5f,
+	0x69, 0x6e, 0x64, 0x65, 0x78, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x70, 0x70, 0x49,
+	0x6e, 0x64, 0x65, 0x78, 0x22, 0x87, 0x01, 0x0a, 0x24, 0x47, 0x65, 0x74, 0x50, 0x72, 0x75, 0x6e,
+	0x69, 0x6e, 0x67, 0x57, 0x69, 0x6e, 0x64, 0x6f, 0x77, 0x52, 0x6f, 0x6f, 0x74, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x33, 0x0a,
+	0x05, 0x72, 0x6f, 0x6f, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x50, 0x72, 0x75, 0x6e, 0x69, 0x6e, 0x67,
+	0x57, 0x69, 0x6e, 0x64, 0x6f, 0x77, 0x52, 0x6f, 0x6f, 0x74, 0x73, 0x52, 0x05, 0x72, 0x6f, 0x6f,
+	0x74, 0x73, 0x12, 0x2a, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52,
+	0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x65,
+	0x0a, 0x0f, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x54, 0x78, 0x45, 0x6e, 0x74, 0x72,
+	0x79, 0x12, 0x24, 0x0a, 0x0d, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12, 0x2c, 0x0a, 0x12, 0x69, 0x6e, 0x64, 0x65, 0x78,
+	0x5f, 0x77, 0x69, 0x74, 0x68, 0x69, 0x6e, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0d, 0x52, 0x10, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x57, 0x69, 0x74, 0x68, 0x69, 0x6e,
+	0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x22, 0x79, 0x0a, 0x1b, 0x4d, 0x65, 0x72, 0x67, 0x65, 0x73, 0x65,
+	0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x61, 0x6e, 0x63, 0x65,
+	0x44, 0x61, 0x74, 0x61, 0x12, 0x1c, 0x0a, 0x09, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x61, 0x73,
+	0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x61,
+	0x73, 0x68, 0x12, 0x3c, 0x0a, 0x0b, 0x61, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x54, 0x78,
+	0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77,
+	0x69, 0x72, 0x65, 0x2e, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x54, 0x78, 0x45, 0x6e,
+	0x74, 0x72, 0x79, 0x52, 0x0b, 0x61, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x54, 0x78, 0x73,
+	0x22, 0xc8, 0x01, 0x0a, 0x0d, 0x41, 0x72, 0x63, 0x68, 0x69, 0x76, 0x61, 0x6c, 0x42, 0x6c, 0x6f,
+	0x63, 0x6b, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x68, 0x69, 0x6c, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x05, 0x63, 0x68, 0x69, 0x6c, 0x64, 0x12, 0x29, 0x0a, 0x05, 0x62, 0x6c, 0x6f, 0x63,
+	0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77,
+	0x69, 0x72, 0x65, 0x2e, 0x52, 0x70, 0x63, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x05, 0x62, 0x6c,
+	0x6f, 0x63, 0x6b, 0x12, 0x4e, 0x0a, 0x0e, 0x61, 0x63, 0x63, 0x65, 0x70, 0x74, 0x61, 0x6e, 0x63,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x4d, 0x65, 0x72, 0x67, 0x65, 0x73, 0x65, 0x74,
+	0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x44,
+	0x61, 0x74, 0x61, 0x52, 0x0e, 0x61, 0x63, 0x63, 0x65, 0x70, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x44,
+	0x61, 0x74, 0x61, 0x12, 0x26, 0x0a, 0x0e, 0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x50,
+	0x61, 0x72, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x65, 0x6c,
+	0x65, 0x63, 0x74, 0x65, 0x64, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x22, 0x53, 0x0a, 0x1f, 0x41,
+	0x64, 0x64, 0x41, 0x72, 0x63, 0x68, 0x69, 0x76, 0x61, 0x6c, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x73,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x30,
+	0x0a, 0x06, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x41, 0x72, 0x63, 0x68, 0x69,
+	0x76, 0x61, 0x6c, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x06, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x73,
+	0x22, 0x4e, 0x0a, 0x20, 0x41, 0x64, 0x64, 0x41, 0x72, 0x63, 0x68, 0x69, 0x76, 0x61, 0x6c, 0x42,
+	0x6c, 0x6f, 0x63, 0x6b, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x12, 0x2a, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65,
+	0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x42, 0x2f, 0x5a, 0x2d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73,
+	0x70, 0x65, 0x63, 0x74, 0x72, 0x65, 0x2d, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x2f, 0x73,
+	0x70, 0x65, 0x63, 0x74, 0x72, 0x65, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72,
+	0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -9374,7 +9850,7 @@ func file_rpc_proto_rawDescGZIP() []byte {
 }
 
 var file_rpc_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 139)
+var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 147)
 var file_rpc_proto_goTypes = []any{
 	(SubmitBlockResponseMessage_RejectReason)(0), // 0: protowire.SubmitBlockResponseMessage.RejectReason
 	(*RPCError)(nil),                                                   // 1: protowire.RPCError
@@ -9516,6 +9992,14 @@ var file_rpc_proto_goTypes = []any{
 	(*GetCurrentBlockColorResponseMessage)(nil),                        // 137: protowire.GetCurrentBlockColorResponseMessage
 	(*SubmitTransactionReplacementRequestMessage)(nil),                 // 138: protowire.SubmitTransactionReplacementRequestMessage
 	(*SubmitTransactionReplacementResponseMessage)(nil),                // 139: protowire.SubmitTransactionReplacementResponseMessage
+	(*GetPruningWindowRootsRequestMessage)(nil),                        // 140: protowire.GetPruningWindowRootsRequestMessage
+	(*PruningWindowRoots)(nil),                                         // 141: protowire.PruningWindowRoots
+	(*GetPruningWindowRootsResponseMessage)(nil),                       // 142: protowire.GetPruningWindowRootsResponseMessage
+	(*AcceptedTxEntry)(nil),                                            // 143: protowire.AcceptedTxEntry
+	(*MergesetBlockAcceptanceData)(nil),                                // 144: protowire.MergesetBlockAcceptanceData
+	(*ArchivalBlock)(nil),                                              // 145: protowire.ArchivalBlock
+	(*AddArchivalBlocksRequestMessage)(nil),                            // 146: protowire.AddArchivalBlocksRequestMessage
+	(*AddArchivalBlocksResponseMessage)(nil),                           // 147: protowire.AddArchivalBlocksResponseMessage
 }
 var file_rpc_proto_depIdxs = []int32{
 	3,   // 0: protowire.RpcBlock.header:type_name -> protowire.RpcBlockHeader
@@ -9619,11 +10103,18 @@ var file_rpc_proto_depIdxs = []int32{
 	6,   // 98: protowire.SubmitTransactionReplacementRequestMessage.transaction:type_name -> protowire.RpcTransaction
 	6,   // 99: protowire.SubmitTransactionReplacementResponseMessage.replacedTransaction:type_name -> protowire.RpcTransaction
 	1,   // 100: protowire.SubmitTransactionReplacementResponseMessage.error:type_name -> protowire.RPCError
-	101, // [101:101] is the sub-list for method output_type
-	101, // [101:101] is the sub-list for method input_type
-	101, // [101:101] is the sub-list for extension type_name
-	101, // [101:101] is the sub-list for extension extendee
-	0,   // [0:101] is the sub-list for field type_name
+	141, // 101: protowire.GetPruningWindowRootsResponseMessage.roots:type_name -> protowire.PruningWindowRoots
+	1,   // 102: protowire.GetPruningWindowRootsResponseMessage.error:type_name -> protowire.RPCError
+	143, // 103: protowire.MergesetBlockAcceptanceData.acceptedTxs:type_name -> protowire.AcceptedTxEntry
+	2,   // 104: protowire.ArchivalBlock.block:type_name -> protowire.RpcBlock
+	144, // 105: protowire.ArchivalBlock.acceptanceData:type_name -> protowire.MergesetBlockAcceptanceData
+	145, // 106: protowire.AddArchivalBlocksRequestMessage.blocks:type_name -> protowire.ArchivalBlock
+	1,   // 107: protowire.AddArchivalBlocksResponseMessage.error:type_name -> protowire.RPCError
+	108, // [108:108] is the sub-list for method output_type
+	108, // [108:108] is the sub-list for method input_type
+	108, // [108:108] is the sub-list for extension type_name
+	108, // [108:108] is the sub-list for extension extendee
+	0,   // [0:108] is the sub-list for field type_name
 }
 
 func init() { file_rpc_proto_init() }
@@ -11300,6 +11791,102 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
+		file_rpc_proto_msgTypes[139].Exporter = func(v any, i int) any {
+			switch v := v.(*GetPruningWindowRootsRequestMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[140].Exporter = func(v any, i int) any {
+			switch v := v.(*PruningWindowRoots); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[141].Exporter = func(v any, i int) any {
+			switch v := v.(*GetPruningWindowRootsResponseMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[142].Exporter = func(v any, i int) any {
+			switch v := v.(*AcceptedTxEntry); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[143].Exporter = func(v any, i int) any {
+			switch v := v.(*MergesetBlockAcceptanceData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[144].Exporter = func(v any, i int) any {
+			switch v := v.(*ArchivalBlock); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[145].Exporter = func(v any, i int) any {
+			switch v := v.(*AddArchivalBlocksRequestMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[146].Exporter = func(v any, i int) any {
+			switch v := v.(*AddArchivalBlocksResponseMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -11307,7 +11894,7 @@ func file_rpc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   139,
+			NumMessages:   147,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
